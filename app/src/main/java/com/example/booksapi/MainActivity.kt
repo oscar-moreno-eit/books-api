@@ -1,13 +1,17 @@
 package com.example.booksapi
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.booksapi.model.remote.BookNetwork
 import com.example.booksapi.model.remote.BookResponse
 import com.example.booksapi.view.Communicator
+import com.example.booksapi.view.DisplayVerticalFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity(), Communicator {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +43,14 @@ class MainActivity : AppCompatActivity(), Communicator {
 
     private fun createDisplayFragment(body: BookResponse?) {
         body?.let {
-            supportFragmentManager
+            Log.d(TAG, "createDisplayFragment: $body it: $it")
+            supportFragmentManager.beginTransaction()
+                // .add() -> Used for overlap multiple fragments, previous fragments is not Destroyed
+                // .hide() -> Make a fragment invisible
+                // .remove() -> Destroy that fragment
+                // .replace() -> Calls the lifecycle of the ne
+                .replace(R.id.display_list_container, DisplayVerticalFragment.newInstance(it))
+                .commit()
         }
     }
 }

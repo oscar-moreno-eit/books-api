@@ -16,7 +16,7 @@ object BookNetwork {
     *  4.- Create the Retrofit Object
     *  5.- Create the API Interface from the Retrofit Object
     * */
-    const val BASE_URL = "//https://www.googleapis.com/"
+    const val BASE_URL = "https://www.googleapis.com/"
     const val ENDPOINT = "books/v1/volumes"
 
     val bookApi: BookAPI by lazy{ // Create a temporary class

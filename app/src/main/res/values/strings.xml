@@ -2,4 +2,16 @@
     <string name="app_name">Books API</string>
     <string name="search_book_by_title">Search book by title</string>
     <string name="btn_book_search">Search</string>
+    <string-array name="sp_filter">
+        <item>ebooks</item>
+        <item>free-ebooks</item>
+        <item>full</item>
+        <item>paid-ebooks</item>
+        <item>partial</item>
+    </string-array>
+    <string-array name="sp_print_type">
+        <item>all</item>
+        <item>books</item>
+        <item>magazines</item>
+    </string-array>
 </resources>

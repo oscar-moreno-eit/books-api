@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="20dp"
     app:cardElevation="20dp"
     android:layout_margin="10dp">
@@ -32,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_book_search"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
+            android:entries="@array/sp_filter"
             />
         <Spinner
             android:id="@+id/sp_book_type"
@@ -40,12 +41,16 @@
             app:layout_constraintTop_toBottomOf="@id/til_book_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/sp_filter"
+            android:entries="@array/sp_print_type"
             />
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/sb_max_results"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:progress="10"
             app:layout_constraintTop_toBottomOf="@+id/sp_filter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
         <Button

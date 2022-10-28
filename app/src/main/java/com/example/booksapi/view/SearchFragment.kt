@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.example.booksapi.MainActivity
 import com.example.booksapi.R
 import com.example.booksapi.databinding.SearchFragmentLayoutBinding
-import com.google.android.material.textfield.TextInputLayout
 
 class SearchFragment: Fragment() {
     private lateinit var binding: SearchFragmentLayoutBinding
@@ -43,8 +43,24 @@ class SearchFragment: Fragment() {
     }
 
     private fun initViews() {
-        binding.btnSearchBook.setOnClickListener {
-            bridge.doSearch(binding.tilBookSearch.editText?.text.toString(),binding.spFilter.selectedItem.toString(),binding.spBookType.selectedItem.toString(),binding.sbMaxResults.progress)
+        binding.btnSearchBook.setOnClickListener{
+
+            if (binding.sbMaxResults.progress == 0) {binding.sbMaxResults.progress = 10}
+
+            bridge.doSearch(binding.tilBookSearch.editText?.text.toString()
+                ,binding.spFilter.selectedItem.toString()
+                ,binding.spBookType.selectedItem.toString()
+                ,binding.sbMaxResults.progress)
+        }
+        binding.spFilter.adapter = ArrayAdapter<String>(requireContext()
+            ,android.R.layout.simple_list_item_1
+            ,requireContext().resources.getStringArray(R.array.sp_filter)
+        )
+        context?.let {
+            binding.spBookType.adapter = ArrayAdapter<String>(it
+                ,android.R.layout.simple_list_item_1
+                ,it.resources.getStringArray(R.array.sp_print_type)
+            )
         }
     }
 
