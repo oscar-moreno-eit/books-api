@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.example.booksapi.MainActivity
@@ -46,6 +47,8 @@ class SearchFragment: Fragment() {
         binding.btnSearchBook.setOnClickListener{
 
             if (binding.sbMaxResults.progress == 0) {binding.sbMaxResults.progress = 10}
+
+            (context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.root.windowToken, 0)
 
             bridge.doSearch(binding.tilBookSearch.editText?.text.toString()
                 ,binding.spFilter.selectedItem.toString()
