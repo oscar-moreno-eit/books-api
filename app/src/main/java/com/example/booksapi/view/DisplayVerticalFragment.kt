@@ -1,14 +1,14 @@
 package com.example.booksapi.view
 
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.booksapi.R
+import com.example.booksapi.common.parseBookList
 import com.example.booksapi.databinding.DisplayFragmentLayoutBinding
 import com.example.booksapi.model.remote.BookInfo
 import com.example.booksapi.model.remote.BookResponse
@@ -45,25 +45,19 @@ class DisplayVerticalFragment:Fragment() {
     }
 
     private fun updateAdapter(dataSet: BookResponse) {
-        binding.rvBooksResult.adapter = BookAdapter(parseListBookInfo(dataSet)){
+        binding.rvBooksResult.adapter = BookAdapter(parseListBookInfo(dataSet)){ indexPos ->
             // Trailing lambda
-           // Toast.makeText(context,"$it",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"$indexPos",Toast.LENGTH_SHORT).show()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.display_horizontal_container,DisplayHorizontalFragment.newInstance(dataSet,indexPos))
+                .addToBackStack(null)
+                .commit()
 
         }
     }
 
     private fun parseListBookInfo(dataSet: BookResponse): List<BookInfo> {
-        return dataSet.items.map { bookItem ->
-            Log.d(TAG, "parseListBookInfo: $bookItem")
-            BookInfo(
-                bookItem.volumeInfo.title
-                ,bookItem.volumeInfo.subtitle
-                ,bookItem.volumeInfo.authors
-                ,bookItem.volumeInfo.description
-                ,bookItem.volumeInfo.publishedDate
-                ,bookItem.volumeInfo.imageLinks
-            )
-        }
+        return dataSet.items.parseBookList()
     }
 
     private fun  initViews(){
