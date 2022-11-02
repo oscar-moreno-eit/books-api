@@ -24,17 +24,7 @@ class BookAdapter(private val dataset: List<BookInfo>, private val openDetails: 
             binding.tvBookTitle.text = currentElement.title
             binding.tvBookPublished.text = currentElement.publishedDate
 
-            // todo implmement picasso and finish the Picasso binding
-            // get Picasso Dependency, do the Picasso.Builder().load().into(binding.ivCoverBook)
-
             Picasso.Builder(binding.ivBookCover.context).build().load(currentElement.imageLinks.smallThumbnail.replace("http:","https:")).into(binding.ivBookCover)
-
-//            val photoUrl = URL(currentElement.imageLinks.smallThumbnail)
-//            binding.ivBookCover.setImageBitmap(BitmapFactory.decodeStream(photoUrl.openConnection().getInputStream()))
-
-//            val imageUri = "https://g.christianbook.com/dg/product/cbd/f400/160341.jpg"
-//            Picasso.Builder(binding.ivBookCover.context).build().load(imageUri).into(binding.ivBookCover)
-
 
         }
     }
@@ -44,7 +34,7 @@ class BookAdapter(private val dataset: List<BookInfo>, private val openDetails: 
 
             binding.tvBookTitle.text = currentElement.title
             binding.tvBookSubtitle.text = currentElement.subtitle
-            binding.tvBookAuthor.text = currentElement.authors.toString()
+            binding.tvBookAuthor.text = currentElement.authors.toString().replace("[","").replace("]","")
             binding.tvDescription.text = currentElement.description
             binding.tvBookPublished.text = currentElement.publishedDate
             Picasso.Builder(binding.ivBookCover.context).build().load(currentElement.imageLinks.smallThumbnail.replace("http:","https:").replace("&zoom=1","&zoom=2")).into(binding.ivBookCover)
