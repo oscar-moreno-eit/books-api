@@ -1,10 +1,11 @@
 package com.example.booksapi.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.booksapi.R
@@ -45,9 +46,11 @@ class DisplayVerticalFragment:Fragment() {
     }
 
     private fun updateAdapter(dataSet: BookResponse) {
-        binding.rvBooksResult.adapter = BookAdapter(parseListBookInfo(dataSet)){ indexPos ->
+        binding.rvBooksResult.adapter = BookAdapter(parseListBookInfo(dataSet)){ indexPos -> // click event
             // Trailing lambda
-            Toast.makeText(context,"$indexPos",Toast.LENGTH_SHORT).show()
+
+            (context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(binding.root.windowToken, 0)
+
             parentFragmentManager.beginTransaction()
                 .replace(R.id.display_horizontal_container,DisplayHorizontalFragment.newInstance(dataSet,indexPos))
                 .addToBackStack(null)
